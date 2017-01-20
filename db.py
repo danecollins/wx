@@ -11,6 +11,7 @@ import pytz
 
 from pony import orm
 from pony.orm import Required, Optional
+import dj_database_url
 
 
 db = orm.Database()
@@ -21,7 +22,7 @@ class Reading(db.Entity):
     humid = Required(float)
     pressure = Required(float)
     wind_dir = Optional(str)
-    wind_gust_speed = Optional(str)
+    wind_gust_speed = Optional(float)
     dewpoint = Optional(float)
     feels_like = Optional(float)
     precip_rate = Required(float)
@@ -34,57 +35,42 @@ class Reading(db.Entity):
         now = datetime.datetime.now(pytz.timezone('US/Pacific'))
         print(wx_data)
         self = cls(temp=wx_data['temperature'],
-                    humid=wx_data['humidity'],
-                    pressure=wx_data['pressure'],
-                    wind_dir=wx_data['wind_dir'],
-                    wind_gust_speed=wx_data['wind_gust_speed'],
-                    dewpoint=wx_data['dewpoint'],
-                    feels_like=wx_data['feelslike'],
-                    precip_rate=wx_data['precip_rate'],
-                    precip_tot=wx_data['precip_today'],
-                    time=now,
-                    station=wx_data['station'],
-                    )
+                   humid=wx_data['humidity'],
+                   pressure=wx_data['pressure'],
+                   wind_dir=wx_data['wind_dir'],
+                   wind_gust_speed=wx_data['wind_gust_speed'],
+                   dewpoint=wx_data['dewpoint'],
+                   feels_like=wx_data['feelslike'],
+                   precip_rate=wx_data['precip_rate'],
+                   precip_tot=wx_data['precip_today'],
+                   time=now,
+                   station=wx_data['station'],
+                   )
         return self
 
 
 def db_bind():
     global db
-    passwd = ''
-    host = 'localhost'
-    port = '5432'
-    connect_string = os.environ['DATABASE_URL']
 
-    db_name, path = connect_string.split(':', 1)
+    connect_string = dj_database_url.config()
+    if connect_string['ENGINE'] == 'django.db.backends.postgresql_psycopg2':
+        db_name = 'postgres'
+    elif connect_string['ENGINE'] == 'django.db.backends.sqlite3':
+        db_name = 'sqlite'
+    else:
+        print('Invalid DATABASE_URL, database not recognized: {}'.format(os.environ['DATABASE_URL']))
+        assert False
+
     if db_name == 'postgres':
-        path = path[2:]  # strip //
-        # postgres://dane:sjsharks@localhost:5432/wx_readings
-        host_string, db_name = path.split('/')
-        # print("host_string={}".format(host_string))
-        # print("db_name={}".format(db_name))
-        if '@' in host_string:
-            user, host = host_string.split('@')
-        else:
-            uname = 'dane'  
-        # print('user={}'.format(user))
-        # print('host={}'.format(host))
-        if ':' in user:
-            uname, passwd = user.split(':')
-        else:
-            uname = 'dane'
-
-        if ':' in host:
-            host, port = host.split(':')
-
-        # print('host={}'.format(host))
-        # print('port={}'.format(port))
-
+        host = connect_string['HOST']
+        passwd = connect_string['PASSWORD']
+        database = connect_string['NAME']
+        uname = connect_string['USER']
         print('Connecting to {} with uname={} and p={}'.format(host, uname, passwd))
-        db.bind('postgres', user=uname, host=host, database='wx_readings')
+        db.bind('postgres', user=uname, host=host, database=database)
 
     elif db == 'sqlite':
-        assert path[:3] == '///'
-        filename = path[3:]
+        filename = connect_string['NAME']
         db.bind('sqlite', filename, create_db=True)
     else:
         print('Invalid DATABASE_URL: {}'.format(connect_string))
