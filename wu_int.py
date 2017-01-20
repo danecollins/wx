@@ -10,14 +10,9 @@ import sys
 from collections import Counter
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-import pandas as pd
 
 
-def get_page():
-    with open('./testdata/pws_ex1.html') as fp:
-        html_text = fp.read()
-
-    return html_text
+station_ids = ['KCASANJO644', 'KCASANTA746', 'KCONIWOT9']
 
 
 def get_wu_pws(station_id):
@@ -26,7 +21,7 @@ def get_wu_pws(station_id):
     return html
 
 
-def test_wx_measurement(wx):
+def validate_wx_measurement(wx):
     req_fields = {'temperature', 'humidity', 'pressure', 'precip_rate', 'dewpoint', 'wind_dir', 'wind_gust_speed', 
                   'precip_today', 'feelslike'}
 
@@ -35,8 +30,16 @@ def test_wx_measurement(wx):
     if req_fields - k:
         print('The following keys were not found {}'.format(req_fields - k))
         return False
-    else:
-        return True
+
+    # convert types
+    new_wx = {}
+    for k, v in wx.items():
+        if k in ['wind_dir', 'station']:
+            new_wx[k] = v
+        else:
+            new_wx[k] = float(v)
+
+    return new_wx
 
 
 def get_weather_data(html_text, desired_station=False):
@@ -65,7 +68,15 @@ def get_weather_data(html_text, desired_station=False):
 
         wx[variable] = value
 
+    wx['station'] = desired_station
     return wx
+
+def get_station_data(station):
+    text = get_wu_pws(station)
+    wx = get_weather_data(text)
+    wx = validate_wx_measurement(wx)
+    return wx
+
 
 if __name__ == '__main__':
     station_ids = ['KCASANJO644', 'KCASANTA746', 'KCONIWOT9']
@@ -73,10 +84,9 @@ if __name__ == '__main__':
     for si in station_ids:
         text = get_wu_pws(si)
         wx = get_weather_data(text)
-        test_wx_measurement(wx)
+        wx = validate_wx_measurement(wx)
         data[si] = wx
 
-    df = pd.DataFrame(data)
-    print(df)
+
 
 
