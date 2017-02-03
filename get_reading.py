@@ -78,5 +78,5 @@ def sms(msg):
 
 if __name__ == '__main__':
     db_bind()
-    # get_readings()
+    get_readings()
     check_rain()
