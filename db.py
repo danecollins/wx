@@ -67,7 +67,7 @@ def db_bind():
         database = connect_string['NAME']
         uname = connect_string['USER']
         print('Connecting to {} with uname={} and p={}'.format(host, uname, passwd))
-        db.bind('postgres', user=uname, host=host, database=database)
+        db.bind('postgres', user=uname, host=host, password=passwd, database=database)
 
     elif db == 'sqlite':
         filename = connect_string['NAME']

@@ -6,3 +6,4 @@ pony==0.7.1
 psycopg2cffi==2.7.5
 pycparser==2.17
 pytz==2016.10
+twilio==5.7.0
