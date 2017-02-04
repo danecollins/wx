@@ -55,16 +55,18 @@ def get_readings():
 @db_session
 def check_rain():
     station_ids = ['KCASANJO644', 'KCASANTA746']
+    last = 0
+    prev = 1
     db_session()
     for station in station_ids:
         readings = select(r for r in Reading if r.station == station).order_by(desc(Reading.time))[:2]
         rain_in_quarter_inches = [int(4.0 * x.precip_tot) for x in readings]
         print('Rain in quarter inches at station {} is {}, hour ago it was {}'.format(station,
-              rain_in_quarter_inches[1], rain_in_quarter_inches[0]))
-        if rain_in_quarter_inches[0] != rain_in_quarter_inches[1]:
-            sms('Rain has reached {} inches at station {}'.format(readings[0].precip_tot, station))
+              rain_in_quarter_inches[last], rain_in_quarter_inches[prev]))
+        if rain_in_quarter_inches[last] > rain_in_quarter_inches[prev]:
+            sms('Rain has reached {} inches at station {}'.format(readings[last].precip_tot, station))
         else:
-            print('No change in rain at {} inches'.format(readings[0].precip_tot))
+            print('No change in rain at {} inches'.format(readings[last].precip_tot))
 
 
 def sms(msg):
