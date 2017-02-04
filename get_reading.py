@@ -59,10 +59,12 @@ def check_rain():
     for station in station_ids:
         readings = select(r for r in Reading if r.station == station).order_by(desc(Reading.time))[:2]
         rain_in_quarter_inches = [int(4.0 * x.precip_tot) for x in readings]
+        print('Rain in quarter inches at station {} is {}, hour ago it was {}'.format(station,
+              rain_in_quarter_inches[1], rain_in_quarter_inches[0]))
         if rain_in_quarter_inches[0] != rain_in_quarter_inches[1]:
-            sms('Rain has reached {} inches at station {}'.format(readings[1].precip_tot, station))
+            sms('Rain has reached {} inches at station {}'.format(readings[0].precip_tot, station))
         else:
-            print('No change in rain at {} inches'.format(readings[1].precip_tot))
+            print('No change in rain at {} inches'.format(readings[0].precip_tot))
 
 
 def sms(msg):
@@ -71,6 +73,7 @@ def sms(msg):
     client = TwilioRestClient(account_sid, auth_token)
     try:
         client.messages.create(to='+14086790481', from_='+16692214546', body=msg)
+        log('sms: ' + m)
     except twilio.TwilioRestException as e:
         m = 'Twilio returned error {}'.format(e)
         log(m, error=True)
