@@ -5,7 +5,7 @@ import twilio
 from twilio.rest import TwilioRestClient
 
 from wu_int import get_station_data
-from db import db_bind, add_wu_reading, Reading
+from dbi import db_bind_from_url, Reading
 from pony.orm import select, db_session, desc
 
 import logging
@@ -46,7 +46,7 @@ def get_readings():
     for station in station_ids:
         wx = get_station_data(station)
         if wx:
-            add_wu_reading(wx)
+            Reading.add_wu_reading(wx)
             log('Add weather reading for {}'.format(station))
         else:
             log('Could not get weather for {}'.format(station), error=True)
@@ -75,6 +75,6 @@ def sms(msg):
 
 
 if __name__ == '__main__':
-    db_bind()
+    db_bind_from_url()
     get_readings()
     check_rain()
