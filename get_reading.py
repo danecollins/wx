@@ -13,6 +13,7 @@ from logging.handlers import SysLogHandler
 
 LOG_PREFIX = 'get_reading'
 
+
 def ptt_logger():
     locallog = logging.getLogger()
     locallog.setLevel(logging.INFO)
@@ -39,7 +40,6 @@ def log(msg, error=False, debug=False):
         logger.info(s)
 
 
-@db_session
 def get_readings():
     station_ids = ['KCASANJO644', 'KCASANTA746', 'KCONIWOT9']
 
@@ -52,21 +52,14 @@ def get_readings():
             log('Could not get weather for {}'.format(station), error=True)
 
 
-@db_session
 def check_rain():
     station_ids = ['KCASANJO644', 'KCASANTA746']
-    last = 0
-    prev = 1
-    db_session()
     for station in station_ids:
-        readings = select(r for r in Reading if r.station == station).order_by(desc(Reading.time))[:2]
-        rain_in_quarter_inches = [int(4.0 * x.precip_tot) for x in readings]
-        print('Rain in quarter inches at station {} is {}, hour ago it was {}'.format(station,
-              rain_in_quarter_inches[last], rain_in_quarter_inches[prev]))
-        if rain_in_quarter_inches[last] > rain_in_quarter_inches[prev]:
-            sms('Rain has reached {} inches at station {}'.format(readings[last].precip_tot, station))
-        else:
-            print('No change in rain at {} inches'.format(readings[last].precip_tot))
+        incr = Reading.check_for_increase(station)
+        if incr:
+            msg = 'Rain has reached {} inches at station {}'.format(incr, station)
+            log(msg)
+            sms(msg)
 
 
 def sms(msg):
@@ -75,7 +68,7 @@ def sms(msg):
     client = TwilioRestClient(account_sid, auth_token)
     try:
         client.messages.create(to='+14086790481', from_='+16692214546', body=msg)
-        log('sms: ' + m)
+        log('sms: ' + msg)
     except twilio.TwilioRestException as e:
         m = 'Twilio returned error {}'.format(e)
         log(m, error=True)
