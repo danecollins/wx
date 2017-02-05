@@ -46,10 +46,13 @@ def db_bind_from_url():
         uname = connect_string['USER']
         print('Connecting to {} with uname={} and p={}'.format(host, uname, passwd))
         db.bind('postgres', user=uname, host=host, password=passwd, database=database)
+        make_tables()
+    elif db_name == 'sqlite':
+        db_bind_for_test()
     else:
         print('Invalid DATABASE_URL: {}'.format(connect_string))
         assert False
-    make_tables()
+
     return db
 
 
@@ -102,6 +105,9 @@ class Reading(db.Entity):
             readings = orm.select(r for r in cls if r.station == station).order_by(orm.desc(cls.time))
 
             # keep last 2
+            if readings.count() < 2:
+                return False  # don't have enough readings yet
+
             readings = readings[:2]
             rain_in_quarter_inches = [int(4.0 * x.precip_tot) for x in readings]
             if rain_in_quarter_inches[last_ix] > rain_in_quarter_inches[prev_ix]:
@@ -118,11 +124,18 @@ class Reading(db.Entity):
     @classmethod
     def add_wu_reading(cls, wx):
         with db_session:
-            cls.from_wunderground(wx)
+            obj = cls.from_wunderground(wx)
             orm.commit()
+        return obj
 
     def __str__(self):
         return 'Reading[id={},sta={},temp={}]'.format(self.id,
                                                       self.station,
                                                       self.temp)
 
+
+def get_station_list():
+    with open('stations.txt') as fp:
+        stations = fp.readlines()
+
+    return [x.strip() for x in stations]

@@ -5,14 +5,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 # standard python includes
-import os
-import sys
-from collections import Counter
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-
-
-station_ids = ['KCASANJO644', 'KCASANTA746', 'KCONIWOT9']
+import dbi
+from log import log
 
 
 def get_wu_pws(station_id):
@@ -22,8 +18,8 @@ def get_wu_pws(station_id):
 
 
 def validate_wx_measurement(wx):
-    req_fields = {'temperature', 'humidity', 'pressure', 'precip_rate', 'dewpoint', 'wind_dir', 'wind_gust_speed', 
-                  'precip_today', 'feelslike'}
+    req_fields = {'temperature', 'humidity', 'pressure', 'precip_rate', 'dewpoint',
+                  'wind_dir', 'wind_gust_speed', 'precip_today', 'feelslike'}
 
     k = wx.keys()
 
@@ -44,7 +40,7 @@ def validate_wx_measurement(wx):
 
 def get_weather_data(html_text, desired_station=False):
     soup = BeautifulSoup(html_text, "html.parser")
-   
+
     # all the data is in spans with a class of 'wx-data'
     spans = soup.find_all('span', attrs={'class': "wx-data"})
 
@@ -71,22 +67,35 @@ def get_weather_data(html_text, desired_station=False):
     wx['station'] = desired_station
     return wx
 
+
 def get_station_data(station):
-    text = get_wu_pws(station)
-    wx = get_weather_data(text)
-    wx = validate_wx_measurement(wx)
-    return wx
+    """
+    Get a dict of the weather attributes for station
 
+    Since it is likely that the weather underground format will change we want to
+    try and log errors and keep the intermediate information around for debugging.
+    """
+    failed = False
+    try:
+        html_text = get_wu_pws(station)
+    except Exception as e:
+        log('Could not get html for station {}'.format(station), error=True)
+        log('    msg="{}"'.format(e), error=True)
+        return False
 
-if __name__ == '__main__':
-    station_ids = ['KCASANJO644', 'KCASANTA746', 'KCONIWOT9']
-    data = {}
-    for si in station_ids:
-        text = get_wu_pws(si)
-        wx = get_weather_data(text)
+    try:
+        wx = get_weather_data(html_text)
         wx = validate_wx_measurement(wx)
-        data[si] = wx
+    except Exception as e:
+        log('Got text for station {} but it did not parse'.format(station), error=True)
+        log('    msg="{}"'.format(e), error=True)
+        log('    wx="{}"'.format(wx), error=True)
+        failed = True
 
+    if (not wx) or failed:
+        # need to write html_text to a debug file
+        with open('failed.html', 'w') as fp:
+            fp.write(html_text)
 
-
+    return wx
 

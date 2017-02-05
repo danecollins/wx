@@ -2,10 +2,19 @@ import unittest
 
 from wu_int import get_weather_data, validate_wx_measurement
 import dbi
-from dbi import Reading
+from dbi import Reading, get_station_list
 from pony.orm import db_session, select
 
 dbi.db_bind_for_test()
+
+
+class TestStationList(unittest.TestCase):
+    def test_read_stations(self):
+        file_lines = []
+        with open('stations.txt') as fp:
+            for line in fp.readlines():
+                file_lines.append(line.strip())
+        self.assertEqual(file_lines, get_station_list())
 
 
 class TestWuParse(unittest.TestCase):
@@ -67,7 +76,13 @@ class TestDb(unittest.TestCase):
             self.assertEqual(obj.temp, 55.0)
             self.assertEqual(obj.wind_dir, 'NW')
 
-    def test_check_for_increase(self):
+    def test_check_for_increase_empty_db(self):
+        self.setup()
+        with db_session:
+            Reading.clear_all_readings()
+        self.assertFalse(Reading.check_for_increase('test'))
+
+    def test_check_for_increase_with_readings(self):
         self.setup()
         self.assertFalse(Reading.check_for_increase('test'))
         # this point crosses total

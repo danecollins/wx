@@ -5,49 +5,19 @@ import twilio
 from twilio.rest import TwilioRestClient
 
 from wu_int import get_station_data
-from dbi import db_bind_from_url, Reading
-from pony.orm import select, db_session, desc
-
-import logging
-from logging.handlers import SysLogHandler
-
-LOG_PREFIX = 'get_reading'
-
-
-def ptt_logger():
-    locallog = logging.getLogger()
-    locallog.setLevel(logging.INFO)
-
-    syslog = SysLogHandler(address=('logs2.papertrailapp.com', 55691))
-    formatter = logging.Formatter('%(asctime)s weather %(levelname)s: %(message)s', datefmt='%Y-%m-%dT%H:%M:%S')
-
-    syslog.setFormatter(formatter)
-    locallog.addHandler(syslog)
-    return locallog
-
-
-logger = ptt_logger()
-
-
-def log(msg, error=False, debug=False):
-    global logger, LOG_PREFIX
-    s = '{} - {}'.format(LOG_PREFIX, msg)
-    if error:
-        logger.error(s)
-    elif debug:
-        logger.debug(s)
-    else:
-        logger.info(s)
+import dbi
+from dbi import Reading
+from log import log
 
 
 def get_readings():
-    station_ids = ['KCASANJO644', 'KCASANTA746', 'KCONIWOT9']
+    station_ids = dbi.get_station_list()
 
     for station in station_ids:
         wx = get_station_data(station)
         if wx:
-            Reading.add_wu_reading(wx)
-            log('Add weather reading for {}'.format(station))
+            r = Reading.add_wu_reading(wx)
+            log('Add weather reading for {:11s} current temp = {}'.format(station, r.temp))
         else:
             log('Could not get weather for {}'.format(station), error=True)
 
@@ -65,9 +35,11 @@ def check_rain():
 def sms(msg):
     account_sid = os.environ.get('TWILIO_ACCOUNT_SID') or 'ACCOUNT_MISSING'
     auth_token = os.environ.get('TWILIO_AUTH_TOKEN') or 'AUTH_TOKEN_MISSING'
+    from_num = os.environ.get('TWILIO_FROM')
+    to_num = os.environ.get('TWILIO_TO')
     client = TwilioRestClient(account_sid, auth_token)
     try:
-        client.messages.create(to='+14086790481', from_='+16692214546', body=msg)
+        client.messages.create(to=to_num, from_=from_num, body=msg)
         log('sms: ' + msg)
     except twilio.TwilioRestException as e:
         m = 'Twilio returned error {}'.format(e)
@@ -75,6 +47,6 @@ def sms(msg):
 
 
 if __name__ == '__main__':
-    db_bind_from_url()
+    dbi.db_bind_from_url()
     get_readings()
     check_rain()
