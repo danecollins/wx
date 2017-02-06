@@ -17,7 +17,7 @@ def get_readings():
         wx = get_station_data(station)
         if wx:
             r = Reading.add_wu_reading(wx)
-            log('Add weather reading for {:11s} current temp = {}'.format(station, r.temp))
+            log('Add reading for {:11s} temp={} ptot={}'.format(station, r.temp, r.precip_tot))
         else:
             log('Could not get weather for {}'.format(station), error=True)
 
