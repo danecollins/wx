@@ -33,7 +33,17 @@ def validate_wx_measurement(wx):
         if k in ['wind_dir', 'station']:
             new_wx[k] = v
         else:
-            new_wx[k] = float(v)
+            v = v.strip()
+            if v:
+                try:
+                    new_wx[k] = float(v)
+                except ValueError:
+                    msg = 'key="{}", value="{}"'.format(k, v)
+                    if 'station' in wx:
+                        msg += ', station={}'.format(wx['station'])
+                    log(msg, error=True)
+            else:
+                new_wx[k] = -1.0
 
     return new_wx
 
