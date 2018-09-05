@@ -23,7 +23,7 @@ def get_readings():
 
 
 def check_rain():
-    station_ids = ['KCASANJO644', 'KCASANTA746']
+    station_ids = ['KCASANJO644', 'KCASANTA746', 'KORPORTL125']
     for station in station_ids:
         incr = Reading.check_for_increase(station)
         if incr:
