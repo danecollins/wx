@@ -8,6 +8,7 @@ import os
 import sys
 import datetime
 import pytz
+import json
 
 from pony import orm
 from pony.orm import Required, Optional, db_session
@@ -97,6 +98,21 @@ class Reading(db.Entity):
                    )
         return self
 
+    def to_dict(self):
+        x = self.time
+        tm = datetime.datetime(x.year, x.month, x.day, x.hour, x.minute, x.second)
+        return dict(temp=self.temp,
+                    humid=self.humid,
+                    pressure=self.pressure,
+                    wind_dir=self.wind_dir,
+                    wind_gust_speed=self.wind_gust_speed,
+                    dewpoint=self.dewpoint,
+                    feels_like=self.feels_like,
+                    precip_rate=self.precip_rate,
+                    precip_tot=self.precip_tot,
+                    time=tm.isoformat(),
+                    station=self.station)
+
     @classmethod
     def check_for_increase(cls, station):
         last_ix = 0
@@ -127,6 +143,13 @@ class Reading(db.Entity):
             obj = cls.from_wunderground(wx)
             orm.commit()
         return obj
+
+    @classmethod
+    def day_to_json(cls, day):
+        with db_session:
+            records = orm.select(d for d in Reading if d.time.date() == day)
+            l = [r.to_dict() for r in records]
+        return json.dumps(l, indent=4, sort_keys=True)
 
     def __str__(self):
         return 'Reading[id={},sta={},temp={}]'.format(self.id,
