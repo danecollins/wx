@@ -1,8 +1,8 @@
-from dbi import Reading, make_tables, db_bind_from_url
+from dbi import Reading, make_tables, db_bind_for_execution
 import datetime
 
 
-db_bind_from_url()
+db_bind_for_execution()
 make_tables()
 
 start_day = datetime.date(2017, 1, 21)

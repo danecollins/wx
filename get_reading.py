@@ -1,6 +1,7 @@
 
 import os
 
+
 import twilio
 from twilio.rest import TwilioRestClient
 
@@ -47,6 +48,6 @@ def sms(msg):
 
 
 if __name__ == '__main__':
-    dbi.db_bind_from_url()
+    dbi.db_bind_for_execution()
     get_readings()
     check_rain()

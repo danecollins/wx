@@ -1,18 +1,12 @@
-# compatibility imports
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
-
 # standard python includes
 import os
-import sys
+import sqlite3
 import datetime
 import pytz
 import json
 
 from pony import orm
 from pony.orm import Required, Optional, db_session
-import dj_database_url
 
 
 db = orm.Database()
@@ -26,34 +20,15 @@ def db_bind_for_test():
     return db
 
 
-def db_bind_from_url():
+def db_bind_for_execution():
     """ Bind to database based on the DATABASE_URL string """
     global db
-
-    connect_string = dj_database_url.config()
-    if connect_string['ENGINE'] == 'django.db.backends.postgresql_psycopg2':
-        db_name = 'postgres'
-    elif connect_string['ENGINE'] == 'django.db.backends.sqlite3':
-        db_name = 'sqlite'
-    else:
-        print('Invalid DATABASE_URL, database not recognized: {}'.format(connect_string))
-        print('engine string is "{}"'.format(connect_string['ENGINE']))
-        assert False
-
-    if db_name == 'postgres':
-        host = connect_string['HOST']
-        passwd = connect_string['PASSWORD']
-        database = connect_string['NAME']
-        uname = connect_string['USER']
-        print('Connecting to {} with uname={} and p={}'.format(host, uname, passwd))
-        db.bind('postgres', user=uname, host=host, password=passwd, database=database)
-        make_tables()
-    elif db_name == 'sqlite':
-        db_bind_for_test()
-    else:
-        print('Invalid DATABASE_URL: {}'.format(connect_string))
-        assert False
-
+    db_file = './weather_readings.sqlite'
+    if not os.path.exists(db_file):
+        conn = sqlite3.connect(db_file)
+        conn.close()
+    db.bind('sqlite', db_file)
+    make_tables()
     return db
 
 
