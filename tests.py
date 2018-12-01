@@ -44,6 +44,10 @@ class TestWuParse(unittest.TestCase):
 
 class TestDb(unittest.TestCase):
     def setup(self):
+        pt0 = dict(temperature=55.0, humidity=.23, pressure=29.45,
+                   wind_dir='NW', wind_gust_speed=4.3, dewpoint=65,
+                   feelslike=65, precip_rate=0.0, precip_today=.00,
+                   station='test')
         pt1 = dict(temperature=55.0, humidity=.23, pressure=29.45,
                    wind_dir='NW', wind_gust_speed=4.3, dewpoint=65,
                    feelslike=65, precip_rate=.12, precip_today=.20,
@@ -69,6 +73,17 @@ class TestDb(unittest.TestCase):
             record_count = Reading.select().count()
         self.assertEqual(num_created, record_count)
 
+    def test_negative_rain(self):
+        pt0 = dict(temperature=55.0, humidity=.23, pressure=29.45,
+                   wind_dir='NW', wind_gust_speed=4.3, dewpoint=65,
+                   feelslike=65, precip_rate=0.0, precip_today=-1,
+                   station='test')
+        with db_session:
+            Reading.clear_all_readings()
+            r = Reading.add_wu_reading(pt0)
+        self.assertEqual(r.precip_tot, 0.0)
+
+
     def test_add_wu_reading(self):
         self.setup()
         with db_session:
@@ -82,7 +97,27 @@ class TestDb(unittest.TestCase):
             Reading.clear_all_readings()
         self.assertFalse(Reading.check_for_increase('test'))
 
+    def test_check_for_small_rain_increase(self):
+        """ if rain has not reached 1/4" don't flag it """
+        pt0 = dict(temperature=55.0, humidity=.23, pressure=29.45,
+                   wind_dir='NW', wind_gust_speed=4.3, dewpoint=65,
+                   feelslike=65, precip_rate=0.0, precip_today=.00,
+                   station='test')
+        pt1 = dict(temperature=55.0, humidity=.23, pressure=29.45,
+                   wind_dir='NW', wind_gust_speed=4.3, dewpoint=65,
+                   feelslike=65, precip_rate=.12, precip_today=.20,
+                   station='test')
+        with db_session:
+            Reading.clear_all_readings()
+            Reading.add_wu_reading(pt0)
+            Reading.add_wu_reading(pt1)  # rain but not enough
+            num_readings = Reading.select().count()
+        
+        self.assertFalse(Reading.check_for_increase('test'))
+        self.assertEqual(2, num_readings)
+
     def test_check_for_increase_with_readings(self):
+        """ report after crossing 1/4" """
         self.setup()
         self.assertFalse(Reading.check_for_increase('test'))
         # this point crosses total

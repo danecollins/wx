@@ -66,8 +66,8 @@ class Reading(db.Entity):
                    wind_gust_speed=wx_data['wind_gust_speed'],
                    dewpoint=wx_data['dewpoint'],
                    feels_like=wx_data['feelslike'],
-                   precip_rate=wx_data['precip_rate'],
-                   precip_tot=wx_data['precip_today'],
+                   precip_rate=max(wx_data['precip_rate'], 0),
+                   precip_tot=max(wx_data['precip_today'], 0),  # returns -1 sometimes
                    time=now,
                    station=wx_data['station'],
                    )
