@@ -43,6 +43,7 @@ def validate_wx_measurement(wx):
                         msg += ', station={}'.format(wx['station'])
                     log(msg, error=True)
             else:
+                log('parameter: {} for station: {} is blank'.format(k, wx['station']), error=True)
                 new_wx[k] = -1.0
 
     return new_wx
