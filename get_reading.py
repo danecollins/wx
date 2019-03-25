@@ -24,11 +24,13 @@ def get_readings():
 
 
 def check_rain():
-    station_ids = ['KCASANJO644', 'KCASANTA746', 'KORPORTL125']
-    for station in station_ids:
+    station_ids = [('KCASANJO644', 'Home'),
+                   ('KCASANTA746', 'Beach'),
+                   ('KORPORTL125', 'Portland')]
+    for station, desc in station_ids:
         incr = Reading.check_for_increase(station)
         if incr:
-            msg = 'Rain has reached {} inches at station {}'.format(incr, station)
+            msg = 'Rain has reached {} inches at station {}'.format(incr, desc)
             log(msg)
             sms(msg)
 

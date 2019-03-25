@@ -1,0 +1,580 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"get_sta",
+				"get_station_list"
+			],
+			[
+				"preci",
+				"precip_today"
+			],
+			[
+				"precit_",
+				"precip_rate"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"urle",
+				"urlencode"
+			],
+			[
+				"N",
+				"NotInterested"
+			],
+			[
+				"Do",
+				"DontGoAgain"
+			],
+			[
+				"awrd",
+				"awrdata_images"
+			],
+			[
+				"range_summ",
+				"get_range_summary_by_user"
+			],
+			[
+				"get",
+				"get_by_name"
+			],
+			[
+				"navbar-",
+				"navbar-default"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"get_p",
+				"get_project"
+			],
+			[
+				"wifi",
+				"WiFi"
+			],
+			[
+				"passwor",
+				"password_confirmation"
+			],
+			[
+				"pa",
+				"password"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 347.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				":W",
+				":w - Save"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+	],
+	"file_history":
+	[
+		"/Users/dane/src/wx/wu_int.py",
+		"/Users/dane/src/wx/dbi.py",
+		"/Users/dane/src/wx/get_reading.py",
+		"/Users/dane/src/wx/log.py",
+		"/Users/dane/src/wx/test_wu.py",
+		"/Users/dane/src/wx/README.md",
+		"/Users/dane/src/wx/stations.txt",
+		"/Users/dane/src/wx/db.py",
+		"/Users/dane/Dropbox/z/SQL.txt",
+		"/Users/dane/src/gh/css/test_faq_2.htm",
+		"/Users/dane/src/gh/css/awr_faq_style.css",
+		"/Users/dane/src/gh/tmp/set.html",
+		"/Users/dane/src/gh/tmp/get.html",
+		"/Users/dane/src/gh/set.html",
+		"/Users/dane/src/gh/Local_Demos/Utilities/awr.js",
+		"/Users/dane/src/gh/Local_Demos/2_QPSK_Signals_BER.html",
+		"/Users/dane/src/foo/server.py",
+		"/Users/dane/Dropbox/z/iPython.txt",
+		"/Users/dane/src/gh/css/awrgh.css",
+		"/Users/dane/src/gh/confluence/awr-kb-video2-txt",
+		"/Users/dane/src/gh/confluence/awr-kb-video.txt",
+		"/Users/dane/src/gh/confluence/awr-display-help.txt",
+		"/Users/dane/src/gh/confluence/awr-script-page-macro.txt",
+		"/Users/dane/src/gh/confluence/awr-open-project.txt",
+		"/Users/dane/src/gh/confluence/awr_vb_script.txt",
+		"/Users/dane/src/gh/confluence/awr-run-project-script.txt",
+		"/Users/dane/src/gh/confluence/awr-run-global-script.txt",
+		"/Users/dane/src/gh/confluence/awr_run_global_script.txt",
+		"/Users/dane/src/gh/confluence/awr_open_project.txt",
+		"/Users/dane/src/guided/ghs/confluence/awr_run_global_script.txt",
+		"/Users/dane/src/gh/css/test_awr_html_ex.html",
+		"/Users/dane/src/gh/css/test_button.html",
+		"/Users/dane/src/gh/css/awr_html.css",
+		"/Users/dane/src/gh/css/test_awr_html.html",
+		"/Users/dane/src/gh/python/diff_usage.py",
+		"/Users/dane/src/gh/css/button_test.html",
+		"/Users/dane/Dropbox/Work/_WIP/16-awr_css/examples/LPF_lumped.html",
+		"/Users/dane/src/guided/html/link_to_tile.html",
+		"/Users/dane/src/w4e/sentinel/models.py",
+		"/Users/dane/src/w4e/sentinel/views.py",
+		"/Users/dane/src/w4e/sentinel/templates/sentinel/add.html",
+		"/Users/dane/Dropbox/z/git_svn_heroku.txt",
+		"/Users/dane/Dropbox/z/Django.txt",
+		"/Users/dane/src/w4e/sentinel/forms.py",
+		"/Users/dane/src/w4e/sentinel/templates/sentinel/edit.html",
+		"/Users/dane/Dropbox/z/js.txt",
+		"/Users/dane/src/w4e/templates/index.html",
+		"/Users/dane/Dropbox/z/osx.txt",
+		"/Users/dane/Dropbox/z/bash.txt",
+		"/Users/dane/src/tp/makefile",
+		"/Users/dane/src/w4e/sentinel/tests.py",
+		"/Users/dane/src/w4e/config/urls.py",
+		"/Users/dane/src/w4e/templates/registration/beta_form.html",
+		"/Users/dane/src/w4e/templates/registration/thank_you.html",
+		"/Users/dane/src/w4e/templates/base.html",
+		"/Users/dane/src/w4e/templates/faq.html",
+		"/Users/dane/src/w4e/sentinel/templates/sentinel/list.html",
+		"/Users/dane/src/w4e/sentinel/templates/sentinel/events.html",
+		"/Users/dane/src/w4e/templates/registration/contact_info_form.html",
+		"/Users/dane/src/w4e/templates/registration/registration_form.html",
+		"/Users/dane/src/w4e/scripts/history.py",
+		"/Users/dane/Dropbox/z/Python.txt",
+		"/Users/dane/src/w4e/scripts/event_history.py",
+		"/Users/dane/src/w4e/sentinel/templates/sentinel/checkin.html",
+		"/Users/dane/src/w4e/sentinel/urls.py",
+		"/Users/dane/src/tp/config/urls.py",
+		"/Users/dane/src/w4e/config/settings.py",
+		"/Users/dane/src/w4e/registration/forms.py",
+		"/Users/dane/src/w4e/config/backends.py",
+		"/Users/dane/src/w4e/templates/registration/activation_email.txt",
+		"/Users/dane/src/w4e/templates/registration/activation_email_subject.txt",
+		"/Users/dane/src/w4e/templates/registration/registration_base.html",
+		"/Users/dane/src/tp/places/tests.py",
+		"/Users/dane/src/tp/places/html_utils.py",
+		"/Users/dane/src/tp/places/views.py",
+		"/Users/dane/src/tp/places/models.py",
+		"/Users/dane/src/w4e/sentinel/templates/sentinel/menu_base.html",
+		"/Users/dane/src/tp/templates/menu_base.html",
+		"/Users/dane/Dropbox/osx/env_var/dt_vars",
+		"/Users/dane/Dropbox/osx/.bash_profile",
+		"/Users/dane/src/tp/blog/forms.py",
+		"/Users/dane/src/tp/blog/views.py",
+		"/Users/dane/src/tp/vote/views.py",
+		"/Users/dane/src/tp/watch/forms.py",
+		"/Users/dane/src/tp/watch/views.py",
+		"/Users/dane/src/tp/registration/views.py",
+		"/Users/dane/src/tp/watch/models.py",
+		"/Users/dane/src/tp/places/templates/places/info.html",
+		"/Users/dane/src/tp/places/urls.py",
+		"/Users/dane/src/tp/scripts/missing_yelp.py",
+		"/Users/dane/src/tp/tests/test_dbdata.py",
+		"/Users/dane/src/tp/tests/test_html.py",
+		"/Users/dane/src/dweb/musiclib/mdb/urls.py",
+		"/Users/dane/src/dweb/musiclib/mdb/templates/mdb/artist_detail.html",
+		"/Users/dane/src/dweb/musiclib/mdb/models.py",
+		"/Users/dane/src/dweb/musiclib/mdb/templates/mdb/all_tracks.html",
+		"/Users/dane/src/dweb/musiclib/mdb/views.py",
+		"/Users/dane/src/dweb/musiclib/musiclib/urls.py",
+		"/Users/dane/Dropbox/osx/bin/camera_toggle",
+		"/Users/dane/Dropbox/osx/bin/htips",
+		"/Users/dane/Dropbox/osx/bin/fix_launch_services",
+		"/Users/dane/Dropbox/osx/bin/make_environments",
+		"/Users/dane/Dropbox/osx/bin/scupdate",
+		"/Users/dane/Dropbox/osx/bin/sshamz",
+		"/Users/dane/Dropbox/osx/bin/airport",
+		"/Users/dane/src/datatools/analytics/ip/views.py",
+		"/Users/dane/src/datatools/analytics/ip/urls.py",
+		"/Users/dane/src/datatools/analytics/ip/templates/ip/by_country.html",
+		"/Users/dane/src/datatools/analytics/ip/models.py",
+		"/Users/dane/src/datatools/analytics/ip/forms.py",
+		"/Users/dane/src/datatools/analytics/analytics/urls.py",
+		"/Users/dane/src/datatools/analytics/ip/templates/ip/nav_base.html",
+		"/Users/dane/src/datatools/analytics/ip/cmd_load_ip_hist.py",
+		"/Users/dane/src/datatools/analytics/ip/whois.py",
+		"/Users/dane/src/datatools/analytics/ip/analyze.py",
+		"/Users/dane/src/datatools/analytics/ip/cmd_load_user_ips.py",
+		"/Users/dane/src/datatools/analytics/ip/cmd_delete_user_ips.py",
+		"/Users/dane/src/datatools/analytics/ip/f.html",
+		"/Users/dane/src/datatools/analytics/ip/putils.py",
+		"/Users/dane/src/datatools/piracy/analyze.py",
+		"/Users/dane/src/datatools/piracy/piracy_utils.py",
+		"/Users/dane/src/datatools/opps/opps2xls.py",
+		"/Users/dane/src/datatools/accounts/accounts.py",
+		"/Users/dane/src/tp/watch/urls.py",
+		"/Users/dane/src/tp/places/forms.py",
+		"/Users/dane/src/tp/vote/models.py",
+		"/Users/dane/src/tp/watch/tests.py",
+		"/Users/dane/src/tp/blog/tests.py"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "wx.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"ipy",
+				"z/iPython.txt"
+			],
+			[
+				"djan",
+				"z/Django.txt"
+			],
+			[
+				"make",
+				"tp/makefile"
+			],
+			[
+				"bash",
+				"z/bash.txt"
+			],
+			[
+				"python",
+				"z/Python.txt"
+			],
+			[
+				"urls",
+				"w4e/config/urls.py"
+			],
+			[
+				"django",
+				"z/Django.txt"
+			],
+			[
+				"form",
+				"w4e/sentinel/forms.py"
+			],
+			[
+				"models",
+				"tp/places/models.py"
+			],
+			[
+				"view",
+				"dweb/musiclib/mdb/views.py"
+			],
+			[
+				"url",
+				"dweb/musiclib/mdb/urls.py"
+			],
+			[
+				"views",
+				"dweb/musiclib/mdb/views.py"
+			],
+			[
+				"model",
+				"datatools/analytics/ip/models.py"
+			],
+			[
+				"who",
+				"datatools/analytics/ip/whois.py"
+			],
+			[
+				"ana",
+				"datatools/analytics/ip/analyze.py"
+			],
+			[
+				"forms",
+				"tp/places/forms.py"
+			],
+			[
+				"tests",
+				"tp/places/tests.py"
+			],
+			[
+				"mode",
+				"tp/places/models.py"
+			],
+			[
+				"csvtu",
+				"fitbit/csvtup.py"
+			],
+			[
+				"single",
+				"datatools/opps/singleseat.py"
+			],
+			[
+				"search",
+				"tp/places/templates/places/search.html"
+			],
+			[
+				"basic",
+				"datatools/js/Basic_Log_Analysis.ipynb"
+			],
+			[
+				"git",
+				"z/git.txt"
+			],
+			[
+				"setting",
+				"tp/config/settings.py"
+			],
+			[
+				"sett",
+				"datatools/analytics/analytics/settings.py"
+			],
+			[
+				"menu",
+				"tp/templates/menu_base.html"
+			],
+			[
+				"abou",
+				"tp/places/templates/places/about.html"
+			],
+			[
+				"index",
+				"tp/places/templates/places/index.html"
+			],
+			[
+				"place_de",
+				"tp/places/templates/places/place_detail.html"
+			],
+			[
+				"obso",
+				"datatools/analytics/cdb/templates/cdb/obsolete_products.html"
+			],
+			[
+				"css",
+				"z/CSS.txt"
+			],
+			[
+				"place_ad",
+				"tp/places/templates/places/place_add.html"
+			],
+			[
+				"place_ed",
+				"tp/places/templates/places/place_edit.html"
+			],
+			[
+				"place_edit",
+				"tp/places/templates/places/place_edit.html"
+			],
+			[
+				"custom",
+				"datatools/html/customer_changes.html"
+			],
+			[
+				"place",
+				"tp/places/templates/places/place_detail.html"
+			],
+			[
+				"menu_base",
+				"tp/templates/menu_base.html"
+			],
+			[
+				"blog_",
+				"tp/static/blog_post_2.html"
+			],
+			[
+				"git.txt",
+				"z/git.txt"
+			],
+			[
+				"dj",
+				"z/Django.txt"
+			],
+			[
+				"menu_",
+				"tp/places/templates/places/menu_base.html"
+			],
+			[
+				"admin",
+				"tp/places/admin.py"
+			],
+			[
+				"fitbit",
+				"fitbit/add_biking.py"
+			],
+			[
+				"sp_",
+				"dweb/xlate/sp_tsv_in.py"
+			],
+			[
+				"week",
+				"datatools/evals/weekly.py"
+			],
+			[
+				"readme",
+				"datatools/README"
+			],
+			[
+				"gen",
+				"leadreport/genreport.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/ista.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 212.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

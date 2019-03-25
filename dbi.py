@@ -103,7 +103,7 @@ class Reading(db.Entity):
 
             # handle negative values that exist due to missing readings
             readings = [max(x, 0) for x in readings]
-            
+
             rain_in_quarter_inches = [int(4.0 * x.precip_tot) for x in readings]
             if rain_in_quarter_inches[last_ix] > rain_in_quarter_inches[prev_ix]:
                 return readings[last_ix].precip_tot
