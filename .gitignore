@@ -7,6 +7,7 @@ __pycache__/
 *$py.class
 .mypy_cache/
 wx.sublime-workspace
+data/
 
 # C extensions
 *.so
