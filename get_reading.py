@@ -8,6 +8,7 @@ import glob
 from postmarker.core import PostmarkClient
 from wu_int import get_station_data, STATION_LIST
 from log import log
+import pytz
 
 # import twilio
 # from twilio.rest import TwilioRestClient
@@ -115,7 +116,8 @@ message sent from get_reading.py
 
 
 if __name__ == '__main__':
-    time = datetime.datetime.now()
+    tz = pytz.timezone('US/Pacific')
+    time = datetime.datetime.now(tz)
     #fn = time.strftime('wx_%Y-%m-%d_%H%M%S.json')
     #readings_to_file(fn)
     fn = time.strftime('wx_%Y-%m-%d_%H%M%S.pq')
