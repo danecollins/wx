@@ -1,0 +1,2 @@
+{"observations":[{"stationID":"KORPORTL125","obsTimeUtc":"2019-08-30T02:15:36Z","obsTimeLocal":"2019-08-29 19:15:36","neighborhood":"Westerly, NW Portland","softwareType":"weatherlink.com 1.10","country":"US","solarRadiation":null,"lon":-122.70030212,"realtimeFrequency":null,"epoch":1567131336,"lat":45.52431488,"uv":null,"winddir":22,"humidity":100,"qcStatus":1,"imperial":{"temp":74,"heatIndex":76,"dewpt":74,"windChill":74,"windSpeed":5,"windGust":null,"pressure":29.90,"precipRate":null,"precipTotal":null,"elev":223}}]}
+

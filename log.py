@@ -1,5 +1,14 @@
 import logging
 from logging.handlers import SysLogHandler
+import sys
+
+
+# detect if we're in pytest so that we can just print errors rather
+# than sending them to papertrails
+if "pytest" in sys.modules:
+    TEST_MODE = True
+else:
+    TEST_MODE = False
 
 LOG_PREFIX = 'get_reading'
 
@@ -20,11 +29,14 @@ logger = ptt_logger()
 
 
 def log(msg, error=False, debug=False):
-    global logger, LOG_PREFIX
+    global logger, LOG_PREFIX, TEST_MODE
     s = '{} - {}'.format(LOG_PREFIX, msg)
-    if error:
-        logger.error(s)
-    elif debug:
-        logger.debug(s)
+    if TEST_MODE:
+        print(s)
     else:
-        logger.info(s)
+        if error:
+            logger.error(s)
+        elif debug:
+            logger.debug(s)
+        else:
+            logger.info(s)

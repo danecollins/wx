@@ -1,26 +1,37 @@
-
+# -*- coding: utf-8 -*-
+from typing import List
 import os
-
+import json
+import datetime
+import pandas as pd
 
 import twilio
 from twilio.rest import TwilioRestClient
 
-from wu_int import get_station_data
-import dbi
-from dbi import Reading
+from wu_int import get_station_data, STATION_LIST
 from log import log
 
+def write_readings_json(readings: List["Reading"], filename: str) -> None:
+    with open(filename, 'w') as fp:
+        fp.write(json.dumps([x.to_dict() for x in readings], indent=4))
 
-def get_readings():
-    station_ids = dbi.get_station_list()
 
-    for station in station_ids:
-        wx = get_station_data(station)
-        if wx:
-            r = Reading.add_wu_reading(wx)
-            log('Add reading for {:11s} temp={} ptot={}'.format(station, r.temp, r.precip_tot))
-        else:
-            log('Could not get weather for {}'.format(station), error=True)
+def write_readings_parquet(readings: List["Reading"], filename: str) -> None:
+    data = [x.to_dict() for x in readings]
+    df = pd.DataFrame.from_records(data)
+    df.to_parquet(filename)
+
+
+def readings_to_file(fn: str, format: str='json') -> None:
+    station_ids = list(STATION_LIST.keys())
+
+    readings = [get_station_data(station) for station in station_ids]
+    if format == 'json':
+        write_readings_json(readings, fn)
+    elif format == 'parquet':
+        write_readings_parquet(readings, fn)
+    else:
+        raise(ValueError, f'Illegal format "{format}"')
 
 
 def check_rain():
@@ -50,6 +61,8 @@ def sms(msg):
 
 
 if __name__ == '__main__':
-    dbi.db_bind_for_execution()
-    get_readings()
-    check_rain()
+    time = datetime.datetime.now()
+    #fn = time.strftime('wx_%Y-%m-%d_%H%M%S.json')
+    #readings_to_file(fn)
+    fn = time.strftime('wx_%Y-%m-%d_%H%M%S.pq')
+    readings_to_file(fn, format='parquet')
