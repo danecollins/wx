@@ -122,14 +122,11 @@ message sent from get_reading.py
 if __name__ == '__main__':
     tz = pytz.timezone('US/Pacific')
     time = datetime.datetime.now(tz)
-    # run every 4 hours
-    if time.hour not in [3, 7, 11, 15, 19, 23]:
-        exit()
 
     fn = time.strftime('wx_%Y-%m-%d_%H%M%S.pq')
     pathname = f'./data/{time.year}/{fn}'
     readings_to_file(pathname, format='parquet')
-    if time.hour >= 20:
+    if time.hour == 6 :
         send_daily_summary(time.strftime('%Y-%m-%d'))
         log('emailed weather stats.')
 
