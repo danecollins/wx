@@ -2,13 +2,11 @@
 
 # standard python includes
 from typing import Dict, Any
-from bs4 import BeautifulSoup
 import requests
 import os
 import datetime
 import re
 import json
-import pdb
 
 # my packages
 from log import log
@@ -90,6 +88,7 @@ def get_pws_data(sid: str, html_text: str=None, write_data: bool=False) -> Dict[
             print(f'URL: {url}')
             print(f'Status Code: {result.status_code}, Reason: {result.reason}')
             print(result.__dict__)
+            log(f'Station {sid} returned web code {result.status_code}.', error=True)
             return None
         else:
             html_text = result.text
@@ -116,11 +115,14 @@ def get_station_data(station: str, html_text: str=None) -> "Reading":
     print(f'Getting data for {station}')
 
     data = get_pws_data(station, html_text)
-    obj = Reading.from_dict(data)
+    if data:
+        obj = Reading.from_dict(data)
+    else:
+        obj = None
     return obj
 
 if __name__ == '__main__':
     station = 'KORPORTL125'
-    data = get_pws_data(station, write_data=True)
+    data = get_station_data(station)
     print(data)
     print()

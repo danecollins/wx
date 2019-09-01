@@ -41,7 +41,11 @@ def write_readings_parquet(readings: List["Reading"], filename: str) -> None:
 def readings_to_file(fn: str, format: str='json') -> None:
     station_ids = list(STATION_LIST.keys())
 
-    readings = [get_station_data(station) for station in station_ids]
+    readings = []
+    for station in station_ids:
+        data = get_station_data(station)
+        if data:
+            readings.append(data)
     if format == 'json':
         write_readings_json(readings, fn)
     elif format == 'parquet':
@@ -118,8 +122,10 @@ message sent from get_reading.py
 if __name__ == '__main__':
     tz = pytz.timezone('US/Pacific')
     time = datetime.datetime.now(tz)
-    #fn = time.strftime('wx_%Y-%m-%d_%H%M%S.json')
-    #readings_to_file(fn)
+    # run every 4 hours
+    if time.hour not in [3, 7, 11, 15, 19, 23]:
+        exit()
+
     fn = time.strftime('wx_%Y-%m-%d_%H%M%S.pq')
     pathname = f'./data/{time.year}/{fn}'
     readings_to_file(pathname, format='parquet')
