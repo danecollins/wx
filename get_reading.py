@@ -125,4 +125,5 @@ if __name__ == '__main__':
     readings_to_file(pathname, format='parquet')
     if time.hour >= 20:
         send_daily_summary(time.strftime('%Y-%m-%d'))
+        log('emailed weather stats.')
 
