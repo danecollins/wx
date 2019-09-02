@@ -1,7 +1,7 @@
 # -*- coding: future_fstrings -*-
 
 # standard python includes
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import requests
 import os
 import datetime
@@ -46,13 +46,13 @@ class Reading:
         self = cls()
 
         self.station = data['stationID']
-        self.name = STATION_LIST[self.station]['name']
+        self.name = str(STATION_LIST[self.station]['name'])
         self.timestamp = data['obsTimeLocal']
         m = data['imperial']
         self.temperature = m['temp']
         self.dewpoint = m['dewpt']
         self.feelslike = m['windChill']
-        self.wind_gust_speed = m['windGust'] 
+        self.wind_gust_speed = m['windGust']
         self.pressure = m['pressure']
         self.precip_rate = m['precipRate'] or self.precip_rate
         self.precip_today = m['precipTotal'] or self.precip_today
@@ -64,10 +64,10 @@ class Reading:
         return self.__dict__
 
 
-
-def get_pws_data(sid: str, html_text: str=None, write_data: bool=False) -> Dict[str, Any]:
+def get_pws_data(sid: str, html_text: str=None, write_data: bool=False) -> Optional[Dict[str, Any]]:
     """
-    url format: https://api.weather.com/v2/pws/observations/current?stationId=KCASANJO644&format=json&units=e&apiKey=455d77d904354fb79d77d904356fb76b
+    url format: https://api.weather.com/v2/pws/observations/current?stationId=KCASANJO644&
+                format=json&units=e&apiKey=455d77d904354fb79d77d904356fb76b
 
     return value:
     {"observations":[{"stationID":"KCASANJO644","obsTimeUtc":"2019-08-29T22:45:25Z",
@@ -104,7 +104,7 @@ def get_pws_data(sid: str, html_text: str=None, write_data: bool=False) -> Dict[
     return observation
 
 
-def get_station_data(station: str, html_text: str=None) -> "Reading":
+def get_station_data(station: str, html_text: str=None) -> Optional["Reading"]:
     """
     Get a Reading of the weather attributes for station
 
@@ -117,10 +117,10 @@ def get_station_data(station: str, html_text: str=None) -> "Reading":
 
     data = get_pws_data(station, html_text)
     if data:
-        obj = Reading.from_dict(data)
+        return Reading.from_dict(data)
     else:
-        obj = None
-    return obj
+        return None
+
 
 if __name__ == '__main__':
     station = 'KORPORTL125'

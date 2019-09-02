@@ -1,0 +1,12 @@
+#!/bin/bash
+
+flake8 *.py
+if [ $? -ne 0 ]; then
+    exit;
+fi
+mypy *.py
+if [ $? -ne 0 ]; then
+    exit;
+fi
+pytest
+
