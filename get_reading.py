@@ -22,9 +22,9 @@ def pm_send_message(subject: str, body: str, body_type: str='text') -> None:
     """ send an email through Postmark service """
     postmark = PostmarkClient(server_token=token)
     if body_type == 'text':
-        return postmark.emails.send(From='dane@dacxl.com', To='dane@awr.com', Subject=subject, TextBody=body)
+        return postmark.emails.send(From='dane@dacxl.com', To='dane@dacxl.com', Subject=subject, TextBody=body)
     else:
-        return postmark.emails.send(From='dane@dacxl.com', To='dane@awr.com', Subject=subject, HtmlBody=body)
+        return postmark.emails.send(From='dane@dacxl.com', To='dane@dacxl.com', Subject=subject, HtmlBody=body)
 
 
 def write_readings_json(readings: List[Reading], filename: str) -> None:
