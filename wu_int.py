@@ -19,7 +19,7 @@ STATION_LIST = {
     'KCASANJO644': dict(name='Palo Santo', rain=True),
     'KCASANTA746': dict(name='Harbor', rain=True),
     'KCONIWOT9': dict(name='Niwot', rain=False),
-    'KCASANTA78': dict(name='Saratoga', rain=False),
+    'KCASANTA78': dict(name='Pleasure Point', rain=False),
     'KCACAMPB54': dict(name='Calado', rain=False),
     'KORPORTL125': dict(name='NW Portland', rain=False),
     'KORPORTL1314': dict(name='Pearl District', rain=False),
