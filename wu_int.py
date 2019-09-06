@@ -16,13 +16,13 @@ TIME_PATTERN = re.compile('([0-9]+) minutes ago')
 
 # this is the list of stations we want weather for.  Add a station here to start collecting data
 STATION_LIST = {
-    'KCASANJO644': dict(name='Palo Santo', rain=True),
-    'KCASANTA746': dict(name='Harbor', rain=True),
-    'KCONIWOT9': dict(name='Niwot', rain=False),
-    'KCASANTA78': dict(name='Pleasure Point', rain=False),
-    'KCACAMPB54': dict(name='Calado', rain=False),
-    'KORPORTL125': dict(name='NW Portland', rain=False),
-    'KORPORTL1314': dict(name='Pearl District', rain=False),
+    'KCASANJO644': dict(name='c-Palo Santo', rain=True),
+    'KCASANTA746': dict(name='s-Harbor', rain=True),
+    'KCONIWOT9': dict(name='z-Niwot', rain=False),
+    'KCASANTA78': dict(name='s-Pleasure Point', rain=False),
+    'KCACAMPB54': dict(name='c-Calado', rain=False),
+    'KORPORTL125': dict(name='p-NW Portland', rain=False),
+    'KORPORTL1314': dict(name='p-Pearl District', rain=False),
 }
 
 
