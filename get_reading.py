@@ -1,4 +1,3 @@
-# -*- coding: future_fstrings -*-
 from typing import List
 import os
 import json

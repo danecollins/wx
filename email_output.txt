@@ -3,20 +3,20 @@ Subject: Daily weather summary
 
 This is the daily summary for 2019-08-30
 
-The highest temperature today was 70 at station Calado.
+The highest temperature today was 83 at station Calado.
 There was no rain today.
-The highest wind gust was 6.0 mph at station Harbor.
+The highest wind gust was 10.0 mph at station Saratoga.
 
 The max values by location were:
 
              temperature  precip_today
 name                                  
-Calado                70           0.0
-Harbor                63           0.0
-NW Portland           67           0.0
-Niwot                 65           0.0
-Palo Santo            66           0.0
-Saratoga              65           0.0
+Calado                83           0.0
+Harbor                69           0.0
+NW Portland           75           0.0
+Niwot                 82           0.0
+Palo Santo            82           0.0
+Saratoga              74           0.0
 
 message sent from get_reading.py
 

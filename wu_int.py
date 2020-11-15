@@ -1,5 +1,3 @@
-# -*- coding: future_fstrings -*-
-
 # standard python includes
 from typing import Dict, Any, Optional
 import requests
