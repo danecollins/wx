@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+ip=52.34.16.237
+user=ubuntu
+key=~/.ssh/lightsail-west-2.pem
+
+echo "IP is $ip"
+echo "user is $user"
+
+if [ "$1" = "" ]
+	then
+		echo ssh -i $key $user@$ip
+		ssh -i $key $user@$ip
+	else
+		if [ "$1" = "put" ]
+			then
+			echo scp -i $key $2 $user@$ip:$3
+			scp -i $key $2 $user@$ip:$3
+		else
+			echo "Argument error $*"
+			exit 1
+		fi
+fi
