@@ -20,10 +20,15 @@ token = os.environ['PM_TOKEN']
 def pm_send_message(subject: str, body: str, body_type: str='text') -> None:
     """ send an email through Postmark service """
     postmark = PostmarkClient(server_token=token)
-    if body_type == 'text':
-        return postmark.emails.send(From='dane@dacxl.com', To='dane@dacxl.com', Subject=subject, TextBody=body)
-    else:
-        return postmark.emails.send(From='dane@dacxl.com', To='dane@dacxl.com', Subject=subject, HtmlBody=body)
+    log(f'Emailing with subject "{subject}"')
+    try:
+        if body_type == 'text':
+            return postmark.emails.send(From='dane@dacxl.com', To='dane@dacxl.com', Subject=subject, TextBody=body)
+        else:
+            return postmark.emails.send(From='dane@dacxl.com', To='dane@dacxl.com', Subject=subject, HtmlBody=body)
+    except Exception as e:
+        log('Caught exception sending email:')
+        log(e)
 
 
 def write_readings_json(readings: List[Reading], filename: str) -> None:
@@ -115,6 +120,6 @@ if __name__ == '__main__':
     data_dir = get_data_dir(str(time))
     pathname = f'{data_dir}/{fn}'
     readings_to_file(pathname, format='parquet')
-    if time.hour == 23:
+    if time.hour >= 21:
         send_daily_summary(time.strftime('%Y-%m-%d'))
-        log('emailed weather stats.')
+        log(f'emailed weather stats at {time.hour}:{time.minute}.')
