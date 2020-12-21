@@ -60,6 +60,9 @@ def readings_to_file(fn: str, format: str='json') -> None:
             sleep(2)
         retry_count -= 1
 
+    if len(station_ids) > 0:
+        log('Could not get readings for these stations: {}'.format(','.join(station_ids)))
+
     if format == 'json':
         write_readings_json(readings, fn)
     elif format == 'parquet':
