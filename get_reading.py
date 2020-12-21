@@ -7,6 +7,7 @@ import glob
 from postmarker.core import PostmarkClient  # type: ignore
 from wu_int import get_station_data, STATION_LIST, Reading
 from log import log
+from time import sleep
 import pytz
 
 # import twilio
@@ -47,12 +48,18 @@ def write_readings_parquet(readings: List[Reading], filename: str) -> None:
 def readings_to_file(fn: str, format: str='json') -> None:
     """ iterate through stations, get the data and write to a file """
     station_ids = list(STATION_LIST.keys())
+    retry_count = 3
 
     readings = []
-    for station in station_ids:
-        data = get_station_data(station)
-        if data:
-            readings.append(data)
+    while retry_count > 0:
+        for station in station_ids:
+            data = get_station_data(station)
+            if data:
+                readings.append(data)
+                station_ids.remove(station)
+            sleep(2)
+        retry_count -= 1
+
     if format == 'json':
         write_readings_json(readings, fn)
     elif format == 'parquet':
