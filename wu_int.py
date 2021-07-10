@@ -16,7 +16,9 @@ TIME_PATTERN = re.compile('([0-9]+) minutes ago')
 STATION_LIST = {
     'KCASANJO644': dict(name='c-Palo Santo', rain=True),
     'KCASANTA746': dict(name='s-Harbor', rain=True),
-    'KCONIWOT9': dict(name='z-Niwot', rain=False),
+    # 'KCONIWOT9': dict(name='z-Niwot', rain=False),
+    'KCOBOULD425': dict(name='b-Naropa', rain=False),
+    'KCOBOULD658': dict(name='b-Mapleton', rain=False),
     'KCASANTA2537': dict(name='s-Seabright', rain=True),
     'KCACAMPB54': dict(name='c-Calado', rain=False),
     'KORPORTL125': dict(name='p-NW Portland', rain=False),
