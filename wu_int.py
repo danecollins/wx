@@ -5,6 +5,8 @@ import os
 import datetime
 import re
 import json
+import twilio
+from twilio.rest import TwilioRestClient
 
 # my packages
 from log import log
@@ -25,6 +27,16 @@ STATION_LIST = {
     'KORPORTL1476': dict(name='p-NW Portland N', rain=False),
     'KORPORTL1314': dict(name='p-Pearl District', rain=False),
 }
+
+def sms(msg):
+    account_sid = os.environ.get('TWILIO_ACCOUNT_SID') or 'ACCOUNT_MISSING'
+    auth_token = os.environ.get('TWILIO_AUTH_TOKEN') or 'AUTH_TOKEN_MISSING'
+    client = TwilioRestClient(account_sid, auth_token)
+    try:
+        client.messages.create(to='+14086790481', from_='+16692214546', body=msg)
+    except twilio.TwilioRestException as e:
+        m = 'Twilio returned error {}'.format(e)
+        print(m)
 
 
 class Reading:
@@ -121,6 +133,38 @@ def get_station_data(station: str, html_text: str=None) -> Optional["Reading"]:
         return Reading.from_dict(data)
     else:
         return None
+
+
+def read_rain(station):
+    try:
+        with open(f'{station}.txt') as fp:
+            rain = float(fp.readline())
+    except:
+        rain = 0
+
+    return rain
+
+
+def write_rain(station, value):
+    with open(f'{station}.txt', 'w') as fp:
+        print(value, file=fp)
+
+
+def check_rain(station, current_rain):
+    last_rain = read_rain(station)
+    if current_rain < last_rain:  # need to reset, new day
+        # reset the counter
+        write_rain(station, current_rain)
+        return False
+
+    if current_rain > (last_rain + 0.25):
+        # once we trigger we set the saved level
+        write_rain(station, current_rain)
+        print(f'{station} rain increased from {last_rain} to {current_rain}')
+        sms(f'Rain has reached {current_rain} inches at station {station}')
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
