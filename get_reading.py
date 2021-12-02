@@ -5,7 +5,7 @@ import datetime
 import pandas as pd  # type: ignore
 import glob
 from postmarker.core import PostmarkClient  # type: ignore
-from wu_int import get_station_data, STATION_LIST, Reading
+from wu_int import get_station_data, STATION_LIST, Reading, check_rain
 from log import log
 from time import sleep
 import pytz
