@@ -21,11 +21,11 @@ STATION_LIST = {
     # 'KCONIWOT9': dict(name='z-Niwot', rain=False),
     'KCOBOULD425': dict(name='b-Naropa', rain=False),
     'KCOBOULD658': dict(name='b-Mapleton', rain=False),
-    'KCASANTA3862': dict(name='s-Seabright SCYC', rain=True),
+    'KCASANTA3862': dict(name='s-SCYC', rain=True),
     'KCACAMPB54': dict(name='c-Calado', rain=False),
     'KORPORTL125': dict(name='p-NW Portland', rain=False),
-    'KORPORTL1476': dict(name='p-NW Portland N', rain=False),
-    'KORPORTL1314': dict(name='p-Pearl District', rain=False),
+    'KORPORTL1476': dict(name='p-NW Portland N', rain=True),
+    # 'KORPORTL1314': dict(name='p-Pearl District', rain=False),
 }
 
 def sms(msg):
