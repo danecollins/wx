@@ -161,8 +161,9 @@ def check_rain(station, current_rain):
     if current_rain > (last_rain + 0.25):
         # once we trigger we set the saved level
         write_rain(station, current_rain)
-        log(f'{station} rain increased from {last_rain} to {current_rain}')
-        sms(f'Rain has reached {current_rain} inches at station {station}')
+        name = STATION_LIST[station]['name']
+        log(f'{name} rain increased from {last_rain} to {current_rain}')
+        sms(f'Rain has reached {current_rain} inches at station: {name}')
         return True
     else:
         return False
