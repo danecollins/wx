@@ -6,7 +6,7 @@ import datetime
 import re
 import json
 import twilio
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
 # my packages
 from log import log
@@ -31,7 +31,7 @@ STATION_LIST = {
 def sms(msg):
     account_sid = os.environ.get('TWILIO_ACCOUNT_SID') or 'ACCOUNT_MISSING'
     auth_token = os.environ.get('TWILIO_AUTH_TOKEN') or 'AUTH_TOKEN_MISSING'
-    client = TwilioRestClient(account_sid, auth_token)
+    client = Client(account_sid, auth_token)
     try:
         client.messages.create(to='+14086790481', from_='+16692214546', body=msg)
     except twilio.TwilioRestException as e:
