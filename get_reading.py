@@ -59,6 +59,7 @@ def readings_to_file(fn: str, format: str='json') -> None:
                 station_ids.remove(station)
                 # check rain for a limited set of stations
                 if STATION_LIST[station]['rain']:
+                    log(f"checking for rain on station {station} - {data.precit_today}")
                     check_rain(station, data.precip_today)
             sleep(2)
         retry_count -= 1

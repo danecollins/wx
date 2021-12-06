@@ -154,13 +154,14 @@ def check_rain(station, current_rain):
     last_rain = read_rain(station)
     if current_rain < last_rain:  # need to reset, new day
         # reset the counter
+        log(f'resetting rain total to {current_rain} in station {station}')
         write_rain(station, current_rain)
         return False
 
     if current_rain > (last_rain + 0.25):
         # once we trigger we set the saved level
         write_rain(station, current_rain)
-        print(f'{station} rain increased from {last_rain} to {current_rain}')
+        log(f'{station} rain increased from {last_rain} to {current_rain}')
         sms(f'Rain has reached {current_rain} inches at station {station}')
         return True
     else:
