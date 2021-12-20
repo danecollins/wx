@@ -11,6 +11,8 @@ from twilio.rest import Client
 # my packages
 from log import log
 
+DEBUG = True
+
 nan = float('nan')
 TIME_PATTERN = re.compile('([0-9]+) minutes ago')
 
@@ -69,6 +71,10 @@ class Reading:
         self.pressure = m['pressure']
         self.precip_rate = m['precipRate'] or self.precip_rate
         self.precip_today = m['precipTotal'] or self.precip_today
+    
+        if DEBUG:
+            log(f'{self.name} - rate: {self.precip_rate}, total: {self.precip_totay}')
+
         self.wind_dir = data['winddir']
         self.humidity = data['humidity']
         return self
