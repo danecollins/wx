@@ -73,7 +73,7 @@ class Reading:
         self.precip_today = m['precipTotal'] or self.precip_today
     
         if DEBUG:
-            log(f'{self.name} - rate: {self.precip_rate}, total: {self.precip_totay}')
+            log(f'{self.name} - rate: {self.precip_rate}, total: {self.precip_today}')
 
         self.wind_dir = data['winddir']
         self.humidity = data['humidity']
