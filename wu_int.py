@@ -20,15 +20,15 @@ TIME_PATTERN = re.compile('([0-9]+) minutes ago')
 STATION_LIST = {
     'KCASANJO644': dict(name='c-Palo Santo', rain=True),
     'KCASANTA746': dict(name='s-Harbor', rain=False),
-    # 'KCONIWOT9': dict(name='z-Niwot', rain=False),
     'KCOBOULD425': dict(name='b-Naropa', rain=False),
     'KCOBOULD658': dict(name='b-Mapleton', rain=False),
     'KCASANTA3862': dict(name='s-SCYC', rain=True),
     'KCACAMPB54': dict(name='c-Calado', rain=False),
     'KORPORTL125': dict(name='p-NW Portland', rain=True),
-    'KMNMINNE304': dict(name='m-St Andrews', rain=True),
+    'KMNMINNE304': dict(name='m-Minneapolis', rain=True),
     # 'KORPORTL1476': dict(name='p-NW Portland N', rain=True),
     # 'KORPORTL1314': dict(name='p-Pearl District', rain=False),
+    # 'KCONIWOT9': dict(name='z-Niwot', rain=False),
 }
 
 def sms(msg):
@@ -112,6 +112,7 @@ def get_pws_data(sid: str, html_text: str=None, write_data: bool=False) -> Optio
             log(f'Station {sid} returned web code {result.status_code}.', error=True)
             return None
         else:
+            print(f'Got data for station {sid}')
             html_text = result.text
 
     if write_data:

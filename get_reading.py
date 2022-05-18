@@ -48,11 +48,13 @@ def write_readings_parquet(readings: List[Reading], filename: str) -> None:
 def readings_to_file(fn: str, format: str='json') -> None:
     """ iterate through stations, get the data and write to a file """
     station_ids = list(STATION_LIST.keys())
+    print(f'Getting dat for {len(station_ids)} stations.')
     retry_count = 3
 
     readings = []
     while retry_count > 0:
-        for station in station_ids:
+        # since we're going to modify station_ids need to make a copy here
+        for station in station_ids.copy():
             data = get_station_data(station)
             if data:
                 readings.append(data)
@@ -61,6 +63,8 @@ def readings_to_file(fn: str, format: str='json') -> None:
                 if STATION_LIST[station]['rain']:
                     log(f"checking for rain on station {station} - {data.precip_today}")
                     check_rain(station, data.precip_today)
+            else:
+                print(f'Failed to get data for {station}, retry_count={retry_count}')
             sleep(2)
         retry_count -= 1
 
