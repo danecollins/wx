@@ -48,7 +48,7 @@ def write_readings_parquet(readings: List[Reading], filename: str) -> None:
 def readings_to_file(fn: str, format: str='json') -> None:
     """ iterate through stations, get the data and write to a file """
     station_ids = list(STATION_LIST.keys())
-    print(f'Getting dat for {len(station_ids)} stations.')
+    print(f'Getting data for {len(station_ids)} stations.')
     retry_count = 3
 
     readings = []
@@ -63,6 +63,10 @@ def readings_to_file(fn: str, format: str='json') -> None:
                 if STATION_LIST[station]['rain']:
                     log(f"checking for rain on station {station} - {data.precip_today}")
                     check_rain(station, data.precip_today)
+
+                # DEBUG
+                if station == 'KCASANJO644':
+                    log(f'** palo santo temperature**: {data.temperature}')
             else:
                 print(f'Failed to get data for {station}, retry_count={retry_count}')
             sleep(2)

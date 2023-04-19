@@ -25,7 +25,7 @@ STATION_LIST = {
     'KCASANTA3862': dict(name='s-SCYC', rain=True),
     'KCACAMPB66': dict(name='c-Campbell', rain=False),
     'KMNMINNE775': dict(name='m-Minneapolis', rain=True),
-    'KORPORTL554': dict(name='p-Pearl District', rain=False),
+    #'KORPORTL554': dict(name='p-Pearl District', rain=False),
     'KORPORTL1637': dict(name='p-NW Portland', rain=False),
     # 'KMNMINNE304': dict(name='m-Minneapolis', rain=True),
     # 'KCACAMPB54': dict(name='c-Calado', rain=False),
